@@ -17,9 +17,9 @@ export default function AIAgents() {
       link: "https://x.com/Michelangelo_NH"
     },
     {
-      name: "@Donatello_Niche",
-      avatar: "/avatar1.jpg",
-      link: "https://x.com/Donatello_Niche"
+      name: "@Donatello_NH",
+      avatar: "/D.jpg",
+      link: "https://x.com/Donatello_NH"
     },
     {
       name: "@Leonardo_Niche",

@@ -13,7 +13,6 @@ export default function HomePage() {
     const fetchTimestamp = async () => {
       const response = await fetch('/api/timer');
       const data = await response.json();
-      console.log(data);
 
       if (data.timestamp) {
         const currentTime = Date.now();
