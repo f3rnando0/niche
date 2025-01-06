@@ -82,7 +82,7 @@ export default function HomePage() {
           {formatTime(timeLeft)}
         </span>
         {paintURL ? (
-          <Image src={paintURL} width={500} height={500} alt="paint" className="frame" />
+          <Image src={paintURL} width={500} height={500} alt="paint" className="frame max-w-[300px] max-h-[600px] lg:max-w-full lg:max-h-full" />
         ) : (
           <Skeleton className="w-[500px] h-[350px]" />
         )}
