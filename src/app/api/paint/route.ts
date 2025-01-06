@@ -1,7 +1,7 @@
 import { env } from "@/env";
 import axios from "axios";
 
-async function getAccessToken() {
+export async function getAccessToken() {
   try {
     const response = await axios({
       method: "POST",
@@ -30,7 +30,7 @@ export async function POST(request: Request) {
 
     const body = await request.json();
 
-    if (Number.isNaN(body.paintID)) {
+    if (!body.paintID) {
       return new Response("Missing paintID", { status: 400 });
     }
 
@@ -44,10 +44,10 @@ export async function POST(request: Request) {
             "Content-Type": "application/json",
             "X-XAPP-Token": token,
           },
-          url: "https://api.artsy.net/api/artworks?total_count=27577",
+          url: `https://api.artsy.net/api/artworks/${body.paintID}`,
         });
 
-        return Response.json(response.data._embedded.artworks[body.paintID]);
+        return Response.json(response.data._links);
       } catch (error) {
         console.error(error);
         return new Response("Internal Server Error", { status: 500 });

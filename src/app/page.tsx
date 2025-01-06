@@ -6,8 +6,8 @@ import { useEffect, useState } from "react";
 
 export default function HomePage() {
   const [timeLeft, setTimeLeft] = useState(3600);
-  const [currentlyPaintIndex, setCurrentlyPaintIndex] = useState<number | undefined>(undefined);
   const [paintURL, setPaintURL] = useState("");
+  const [isFetchingPaint, setFetchingPaint] = useState("");
 
   useEffect(() => {
     const fetchTimestamp = async () => {
@@ -20,8 +20,8 @@ export default function HomePage() {
         setTimeLeft(remainingTime);
       }
 
-      if (typeof data.currentlyPaintIndex === "number") {
-        setCurrentlyPaintIndex(data.currentlyPaintIndex);
+      if (data.currentlyPaint) {
+        setFetchingPaint(data.currentlyPaint);
       }
     };
 
@@ -42,23 +42,27 @@ export default function HomePage() {
 
   const resetTimer = async () => {
     try {
-      await axios('/api/timer', { method: 'POST' });
+      const response = await axios('/api/timer', { method: 'POST' });
+
+      if (response.data.currentlyPaint) {
+        fetchPaint(isFetchingPaint);
+      }
     } catch (error) {
       console.error('Failed to reset timer:', error);
     }
   };
 
   useEffect(() => {
-    if (currentlyPaintIndex !== undefined) {
-      fetchPaint(currentlyPaintIndex);
+    if (isFetchingPaint) {
+      fetchPaint(isFetchingPaint);
     }
-  }, [currentlyPaintIndex])
+  }, [isFetchingPaint])
 
-  const fetchPaint = async (index: number) => {
+  const fetchPaint = async (id: string) => {
     try {
-      const request = await axios('/api/paint', { method: 'POST', data: JSON.stringify({ paintID: index }) });
+      const request = await axios('/api/paint', { method: 'POST', data: JSON.stringify({ paintID: id }) });
 
-      setPaintURL(request.data._links.thumbnail.href);
+      setPaintURL(request.data.thumbnail.href);
     } catch (error) {
       console.error('Failed to fetch paint:', error);
     }
@@ -73,7 +77,7 @@ export default function HomePage() {
 
   return (
     <div className="w-full">
-      <div className="flex flex-col justify-center items-center pt-10 gap-10">
+      <div className="flex flex-col justify-center items-center py-10 gap-10">
         <span className="text-6xl font-bold text-pretty w-max">
           {formatTime(timeLeft)}
         </span>

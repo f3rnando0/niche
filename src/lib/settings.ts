@@ -9,7 +9,7 @@ export async function getOrCreateSettings() {
   if (!settings) {
     settings = await Setting.create({
       timestamp: Date.now() + 3600000,
-      currentlyPaintIndex: 0,
+      currentlyPaintIndex: null,
       isMain: true,
     });
   }

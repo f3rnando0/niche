@@ -1,5 +1,5 @@
 import { BookIcon, BookImage, BotIcon, Home, PaperclipIcon } from "lucide-react"
-import { IconBrandGithub } from '@tabler/icons-react'
+import { IconBrandGithub, IconBrandX } from '@tabler/icons-react'
 
 import {
   Sidebar,
@@ -49,6 +49,12 @@ const items = [
     title: "Github",
     url: "https://github.com/Niche-Aii/Niche",
     icon: IconBrandGithub,
+    target: "_blank"
+  },
+  {
+    title: "X",
+    url: "https://x.com/nichedotfun",
+    icon: IconBrandX,
     target: "_blank"
   },
 ]

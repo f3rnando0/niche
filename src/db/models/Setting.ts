@@ -1,20 +1,20 @@
-import { model, Schema } from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 export const settingSchema = new Schema(
-	{
-		timestamp: {
-			type: Number,
-			required: true,
-			default: 3600,
-		},
-		currentlyPaintIndex: {
-			type: Number,
-			default: null,
-		},
-	},
-	{
-		timestamps: true,
-	},
+  {
+    timestamp: {
+      type: Number,
+      required: true,
+      default: 3600,
+    },
+    currentlyPaint: {
+      type: String,
+      default: null,
+    },
+  },
+  {
+    timestamps: true,
+  }
 );
 
-export const Setting = model("Setting", settingSchema);
+export const Setting = mongoose.model("Setting", settingSchema);
