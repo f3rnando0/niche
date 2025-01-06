@@ -47,7 +47,7 @@ export async function POST(request: Request) {
           url: "https://api.artsy.net/api/artworks?total_count=27577",
         });
 
-        return Response.json(response.data._embedded.artworks[body.paintID] ?? response.data._embedded.artworks[body.paintID - 1]);
+        return Response.json(response.data._embedded.artworks[body.paintID]);
       } catch (error) {
         console.error(error);
         return new Response("Internal Server Error", { status: 500 });
